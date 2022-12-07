@@ -1,5 +1,6 @@
 import mysql.connector
 from . import dbconfig as cfg
+from flask_login import UserMixin
 class User:
     connection=""
     cursor =''
@@ -67,6 +68,41 @@ class User:
        self.close_all()
        return newid  
 
+    def get_user_exists(self, email):
+        exists = True
+        cursor = self.get_cursor()
+        sql="select email from users where email = %s limit 1"
+        values = (email, )
+        cursor.execute(sql, values)
+        result =  cursor.fetchone()
+        if result is None:
+            exists = False
+        self.close_all()
+
+        return exists
+
+    def get_user_uid(self, email):
+        cursor = self.get_cursor()
+        sql="select uid from users where email = %s limit 1"
+        values = (email, )
+        cursor.execute(sql, values)
+        result =  cursor.fetchone()
+        id = result[0]
+        self.close_all()
+
+        return id
+    
+    def get_user_firstname(self, email):
+        cursor = self.get_cursor()
+        sql="select firstname from users where email = %s limit 1"
+        values = (email, )
+        cursor.execute(sql, values)
+        result =  cursor.fetchone()
+        firstname = result[0]
+        self.close_all()
+
+        return firstname
+
     def get_user_password(self, email):
         cursor = self.get_cursor()
         sql="select password from users where email = %s limit 1"
@@ -75,7 +111,27 @@ class User:
         result =  cursor.fetchone()
         password = result[0]
         self.close_all()
+
         return password
+
+class OneUser(UserMixin):
+    def __init__(self, id, email, password, name, active=True):
+        self.id = id
+        self.email = email
+        self.password = password
+        self.name = name
+        self.active = active
+
+    def is_active(self):
+        # Here you should write whatever the code is
+        # that checks the database if your user is active
+        return self.active
+
+    def is_anonymous(self):
+        return False
+
+    def is_authenticated(self):
+        return True
 
 class Note:
     connection=""
