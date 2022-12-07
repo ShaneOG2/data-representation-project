@@ -1,7 +1,8 @@
 import mysql.connector
 from . import dbconfig as cfg
 from flask_login import UserMixin
-class User:
+
+class Users:
     connection=""
     cursor =''
     host=       ''
@@ -103,6 +104,17 @@ class User:
 
         return firstname
 
+    def get_user_firstname_by_uid(self, uid):
+        cursor = self.get_cursor()
+        sql="select firstname from users where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        result =  cursor.fetchone()
+        firstname = result[0]
+        self.close_all()
+
+        return firstname
+
     def get_user_password(self, email):
         cursor = self.get_cursor()
         sql="select password from users where email = %s limit 1"
@@ -114,9 +126,33 @@ class User:
 
         return password
 
-class OneUser(UserMixin):
-    def __init__(self, id, email, password, name, active=True):
-        self.id = id
+    def get_user_password_by_uid(self, uid):
+        cursor = self.get_cursor()
+        sql="select password from users where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        result =  cursor.fetchone()
+        password = result[0]
+        self.close_all()
+
+        return password
+
+    def get_user_email_by_uid(self, uid):
+        cursor = self.get_cursor()
+        sql="select email from users where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        result =  cursor.fetchone()
+        email = result[0]
+        self.close_all()
+
+        return email
+
+
+
+class User(UserMixin):
+    def __init__(self, uid, email, password, name, active=True):
+        self.uid = uid
         self.email = email
         self.password = password
         self.name = name
@@ -132,6 +168,7 @@ class OneUser(UserMixin):
 
     def is_authenticated(self):
         return True
+
 
 class Note:
     connection=""
