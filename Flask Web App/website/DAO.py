@@ -2,7 +2,7 @@ import mysql.connector
 from . import dbconfig as cfg
 from flask_login import UserMixin
 
-class Users:
+class Users_Class:
     connection=""
     cursor =''
     host=       ''
@@ -150,7 +150,7 @@ class Users:
 
 
 
-class User(UserMixin):
+class User_Class(UserMixin):
     def __init__(self, uid, email, password, name, active=True):
         self.uid = uid
         self.email = email
@@ -169,8 +169,10 @@ class User(UserMixin):
     def is_authenticated(self):
         return True
 
+    def get_id(self):
+        return self.uid
 
-class Note:
+class Notes_Class:
     connection=""
     cursor =''
     host=       ''
@@ -221,6 +223,19 @@ class Note:
        newid = cursor.lastrowid
        self.close_all()
        return newid   
+
+    def get_user_notes(self, uid):
+        cursor = self.get_cursor()
+        sql="select data from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        notes = []
+        for i in results:
+            notes.append(i[0])
+        self.close_all()
+
+        return notes
  
 
 #if __name__ == "__main__":
@@ -231,6 +246,9 @@ class Note:
     #Notes.create_note_table()
 #
     #Users.create_user(("shane@gmail.com", "12345678", "Shane"))
+    #Users.get_user_email_by_uid("1")
+    #Users.get_user_password_by_uid("1")
+    #Users.get_user_firstname_by_uid("1")
 
     #Notes.create_note_table()
     #Users.create_user(("paul@gmail.com", "12345678", "Paul"))

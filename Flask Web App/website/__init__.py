@@ -30,14 +30,11 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        user = get_user(id)
+        user = get_user_by_id()
         return user
 
     return app
-
-def get_user(id):
-    user = DAO.User(uid = str(id),
-                email = DAO.Users.get_user_email_by_uid((str(id))),
-                password = DAO.Users.get_user_password_by_uid((str(id))),
-                name = DAO.Users.get_user_firstname_by_uid((str(id))))
+from .auth import users
+def get_user_by_id():
+    user = DAO.User_Class(uid = "1", email = users.get_user_email_by_uid("1"), password = users.get_user_password_by_uid("1"), name = users.get_user_firstname_by_uid("1"))
     return user
