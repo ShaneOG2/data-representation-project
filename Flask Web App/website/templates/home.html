@@ -2,7 +2,7 @@
 %}
 <h1 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
-  {% for note in current_user_notes %}
+  {% for note in notes %}
   <li class="list-group-item">
     {{ note }}
     <button type="button" class="close" onClick="">

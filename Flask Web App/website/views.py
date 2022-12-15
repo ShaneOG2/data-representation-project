@@ -15,11 +15,6 @@ def home():
     current_user_id = current_user.uid
     current_user_notes = notes.get_user_notes(current_user_id)
 
-
-    print(current_user_id)
-    
-    print(current_user_notes)
-
     if request.method == 'POST':
         note_data = request.form.get('note')
 
@@ -31,4 +26,4 @@ def home():
             flash('Note added!', category='success')
 
 
-    return render_template("home.html", user = current_user)
+    return render_template("home.html", user = current_user, notes = current_user_notes)

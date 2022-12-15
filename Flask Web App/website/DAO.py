@@ -238,14 +238,14 @@ class Notes_Class:
         return notes
  
 
+
 #if __name__ == "__main__":
-    #Users.create_database()
+    #Users_Class.create_database()
+    #Users_Class.create_user_table()
 
-    #Users.create_user_table()
+    #Notes_Class.create_note_table()
 
-    #Notes.create_note_table()
-#
-    #Users.create_user(("shane@gmail.com", "12345678", "Shane"))
+    #Users_Class.create_user(("shane@gmail.com", "12345678", "Shane"))
     #Users.get_user_email_by_uid("1")
     #Users.get_user_password_by_uid("1")
     #Users.get_user_firstname_by_uid("1")
