@@ -10,6 +10,8 @@ auth = Blueprint('auth', __name__)
 users = DAO.Users_Class()
 users.create_database()
 users.create_user_table()
+notes = DAO.Notes_Class()
+notes.create_note_table()
 
 @auth.route('/login', methods = ["GET", "POST"])
 def login():

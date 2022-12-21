@@ -204,10 +204,15 @@ class Notes_Class:
         cursor = self.get_cursor()
         sql='''create table if not exists notes (
             nid int NOT NULL AUTO_INCREMENT, 
+            date VARCHAR(20), 
+            time VARCHAR(20), 
             data VARCHAR(1000), 
-            uid int,
+            euro VARCHAR(20),
+            usd VARCHAR(20),
+            gbp VARCHAR(20),
+            uid int, 
             PRIMARY KEY (nid),
-            FOREIGN KEY (uid) REFERENCES users(uid));
+            FOREIGN KEY (uid) REFERENCES users(uid))
             '''
         cursor.execute(sql)
 
@@ -216,7 +221,7 @@ class Notes_Class:
          
     def create_note(self, values):
        cursor = self.get_cursor()
-       sql="insert into notes (data, uid) values (%s, %s)"
+       sql="insert into notes (data, date, time, euro, usd, gbp, uid) values (%s, %s, %s, %s, %s, %s, %s)"
        cursor.execute(sql, values)
 
        self.connection.commit()
@@ -236,6 +241,71 @@ class Notes_Class:
         self.close_all()
 
         return notes
+
+    def get_user_date(self, uid):
+        cursor = self.get_cursor()
+        sql="select date from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        date = []
+        for i in results:
+            date.append(i[0])
+        self.close_all()
+
+        return date
+
+    def get_user_time(self, uid):
+        cursor = self.get_cursor()
+        sql="select euro from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        time = []
+        for i in results:
+            time.append(i[0])
+        self.close_all()
+
+        return time
+
+    def get_user_euro(self, uid):
+        cursor = self.get_cursor()
+        sql="select euro from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        euro = []
+        for i in results:
+            euro.append(i[0])
+        self.close_all()
+
+        return euro
+
+    def get_user_usd(self, uid):
+        cursor = self.get_cursor()
+        sql="select euro from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        usd = []
+        for i in results:
+            usd.append(i[0])
+        self.close_all()
+
+        return usd
+    
+    def get_user_gbp(self, uid):
+        cursor = self.get_cursor()
+        sql="select euro from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        gbp = []
+        for i in results:
+            gbp.append(i[0])
+        self.close_all()
+
+        return gbp
  
 
 
