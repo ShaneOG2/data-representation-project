@@ -159,8 +159,6 @@ class User_Class(UserMixin):
         self.active = active
 
     def is_active(self):
-        # Here you should write whatever the code is
-        # that checks the database if your user is active
         return self.active
 
     def is_anonymous(self):
@@ -306,23 +304,26 @@ class Notes_Class:
         self.close_all()
 
         return gbp
+
+    def get_user_nid(self, uid):
+        cursor = self.get_cursor()
+        sql="select nid from notes where uid = %s"
+        values = (uid, )
+        cursor.execute(sql, values)
+        results =  cursor.fetchall()
+        nid = []
+        for i in results:
+            nid.append(i[0])
+        self.close_all()
+
+        return nid
+
+    def delete_note_by_nid(self, nid):
+        cursor = self.get_cursor()
+        sql="delete from notes where nid = %s"
+        values = (nid,)
+
+        cursor.execute(sql, values)
+
+        self.close_all()
  
-
-
-#if __name__ == "__main__":
-    #Users_Class.create_database()
-    #Users_Class.create_user_table()
-
-    #Notes_Class.create_note_table()
-
-    #Users_Class.create_user(("shane@gmail.com", "12345678", "Shane"))
-    #Users.get_user_email_by_uid("1")
-    #Users.get_user_password_by_uid("1")
-    #Users.get_user_firstname_by_uid("1")
-
-    #Notes.create_note_table()
-    #Users.create_user(("paul@gmail.com", "12345678", "Paul"))
-#
-    #Notes.create_note(("Hello ervretgvergrege4r5g gfe e4ge3 4gege3f4 4 343 r", "6"))
-    
-    #print("sanity")

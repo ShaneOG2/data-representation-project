@@ -23,6 +23,7 @@ def home():
     current_user_euros = notes.get_user_euro(current_user_id)
     current_user_usds = notes.get_user_usd(current_user_id)
     current_user_gbps = notes.get_user_gbp(current_user_id)
+    current_user_nids = notes.get_user_nid(current_user_id)
 
     if request.method == 'POST':
         note_data = request.form.get('note')
@@ -47,7 +48,14 @@ def home():
                             euros = current_user_euros,
                             usds = current_user_usds,
                             gbps = current_user_gbps,
+                            nids = current_user_nids,
                             n = len(current_user_notes))
+
+@views.route('/delete-note', methods=['POST'])
+def delete_note():
+    note = json.loads(request.data)
+    noteId = note['noteId']
+    notes.delete_note_by_nid(noteId)
 
 def getCoinDesk():
     url = "https://api.coindesk.com/v1/bpi/currentprice.json"

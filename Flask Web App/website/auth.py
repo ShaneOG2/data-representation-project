@@ -1,9 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from . import DAO
-#from . import db
-#from .models import User
+
 
 auth = Blueprint('auth', __name__)
 
@@ -16,18 +14,14 @@ notes.create_note_table()
 @auth.route('/login', methods = ["GET", "POST"])
 def login():
     if request.method == "POST": 
-        # Get email form form and check user exists
         email = request.form.get("email")
         user_exists = users.get_user_exists((email))
         
         if user_exists:
-            #user = User.query.filter_by(email=email).first()
             user = get_user_by_email(email)
-            # Get password from from and real password
             user_inputted_password = request.form.get("password")
             user_password = users.get_user_password((email))
 
-            #check_password_hash(user_inputted_password, user_password):
             if user_inputted_password == user_password:
                 flash('Logged in sucessfully!', category='success')
                 login_user(user, remember = True)
@@ -68,16 +62,8 @@ def sign_up():
         else: 
             users.create_user((user_email, 
                             user_password1,
-                            #testing - generate_password_hash(user_password1, method='sha256'), 
                             user_firstname))
             new_user = get_user_by_email(user_email)
-            #new_user = User(email=user_email, 
-            #                first_name=user_firstname, 
-            #                #password=generate_password_hash(user_password1, method='sha256')
-            #                password=user_password1
-            #                )
-            #db.session.add(new_user)
-            #db.session.commit()
             login_user(new_user, remember = True)
             flash('Account created!', category='success')
             return redirect(url_for("views.home"))
