@@ -6,7 +6,7 @@ This repository contains my work for the Data Representation Project at ATU as p
 
 The repos repository structure is below. 
 
-![Heading image](Content/repo.png) <br> 
+![Heading image](Content\repo.PNG) <br> 
 
 - `main.py` is used to run the api while `requirements.txt` contains the modules needed to run this api. 
 - `website` folder contains the bulk of the code. 
@@ -23,6 +23,6 @@ The repos repository structure is below.
 
 Below are the images of the sign up, login and home page of the api. 
 
-![Heading image](Content/signup.png) <br> 
-![Heading image](Content/login.png) <br> 
-![Heading image](Content/home.png) <br> 
+![Heading image](Content\signup.png) <br> 
+![Heading image](Content\login.png) <br> 
+![Heading image](Content\home.png) <br> 
