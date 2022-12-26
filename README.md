@@ -1,10 +1,10 @@
 # Data Representation Project 
 
-This repository contains my work for the Data Representation Project at ATU as part of the Higher Diploma in Computing (Data Analytics). I create an API that lets the users create an account and sign in. The user can then see realtime Bitcoin prices and save notes to their account. 
+This repository contains my work for the Data Representation Project at ATU as part of the Higher Diploma in Computing (Data Analytics). I created an API that lets the users create an account and sign in. The user can then see realtime Bitcoin prices and save notes to their account. 
 
 # Overview 
 
-The repos repository structure is below. 
+The repository structure is below. 
 
 - `main.py` is used to run the API while `requirements.txt` contains the modules needed to run this API. 
 - `website` folder contains the bulk of the code. 
