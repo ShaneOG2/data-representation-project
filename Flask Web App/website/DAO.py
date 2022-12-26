@@ -255,7 +255,7 @@ class Notes_Class:
 
     def get_user_time(self, uid):
         cursor = self.get_cursor()
-        sql="select euro from notes where uid = %s"
+        sql="select time from notes where uid = %s"
         values = (uid, )
         cursor.execute(sql, values)
         results =  cursor.fetchall()
